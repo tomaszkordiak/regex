@@ -60,3 +60,30 @@ if match:
 else:
     print("no match")
 
+# re.finditer - Iterator
+# Faster than re.findall
+print('*' * 20)
+
+pattern = r"\d+"
+text = 'Ny Postal Codes are 10001, 10002, 10003, 10004'
+
+print('Pattern', pattern)
+match_iter = re.finditer(pattern, text)
+
+print('Matches')
+for match in match_iter:
+    print('\t', match.group(0), 'at index:', match.start())
+
+# groups - find sub matches
+print('*' * 20)
+pattern = r"(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})"
+text = 'Start Date: 20200920'
+
+match = re.search(pattern, text)
+if match:
+    print(match.group(0), 'at index:', match.start())
+    print('\t', match.groupdict())
+else:
+    print("no match")
+
+
