@@ -48,7 +48,6 @@ if match:
 else:
     print("no match")
 
-
 # re.findall - Find all the matches
 pattern = r"\d+"
 text = 'Ny Postal Codes are 10001, 10002, 10003, 10004'
@@ -86,4 +85,40 @@ if match:
 else:
     print("no match")
 
+# re.sub - find and replace
+print('*' * 20)
+pattern = r"(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})"
+text = "Start Date: 20200920, End Date: 20210920"
+replacement_pattern = r"\g<month>-\g<day>-\g<year>"
 
+new_text = re.sub(pattern, replacement_pattern, text)
+print('new text\t', new_text)
+
+import datetime
+
+
+def format_date(match):
+    in_date = match.groupdict()
+
+    year = int(in_date['year'])
+    month = int(in_date['month'])
+    day = int(in_date['day'])
+
+    return datetime.date(year, month, day).strftime('%b-%d-%Y')
+
+
+pattern = r"(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})"
+text = "Start Date: 20200920, End Date: 20210920"
+print('original text\t', text)
+print()
+
+new_text = re.sub(pattern, format_date, text)
+print('new text\t', new_text)
+
+# re.split - split text based on specified pattern
+print('*' * 20)
+
+pattern = r","
+text = "a-c,x,y,1"
+
+print(re.split(pattern, text))
